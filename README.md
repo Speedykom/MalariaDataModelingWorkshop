@@ -1,6 +1,6 @@
 # IGAD Malaria & Disease Dashboard Project
 
-Click [here](https://speedykom.github.io/malaria_modeling_presentation/#/title-slide) to view the presentation.
+Click [here](https://speedykom.github.io/Seans_presentation/#/title-slide) to view the presentation.
 
 
 ## Aider + uv Workflow Guide
