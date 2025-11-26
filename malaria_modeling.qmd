@@ -1,0 +1,469 @@
+---
+title: "Malaria Data Modeling workshop"
+subtitle: "Introduction to uv, VSCode, Streamlit and Aider"
+format:
+  revealjs:
+    highlight-style: monokai # or 'dracula' or 'nord'
+    theme: [default, theme.scss]
+    transition: concave
+    transition-speed: slow
+    logo: imgs/IGAD_GIZ_Speedykom.png
+  
+controls: true
+slide-number: true
+embed-resources: true
+scrollable: false  
+    
+---
+
+## What We'll Cover Today
+
+::: {.incremental}
+1. **Installing Tools** - uv and Aider setup
+2. **Project Initialization** - Creating your workspace
+3. **Configuration** - Gemini API and Aider settings
+4. **Installing Dependencies** - Adding required libraries
+5. **The Development Workflow** - Building with AI
+6. **Running the Application** - Launching your dashboard
+:::
+
+---
+
+# Part 1: Installation & Setup
+
+---
+
+## Install uv {transition="zoom-in fade-out" transition-speed="slow"}
+
+**uv** is an extremely fast Python package and project manager, written in Rust 🦀
+
+### Windows (using winget)
+
+```bash
+winget install --id astral-sh.uv
+```
+
+### macOS & Linux (Ubuntu)
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+---
+
+## Why is uv So Fast?
+
+:::: {.columns}
+::: {.column width="50%"}
+### Key Features
+
+- **10-100x faster** than pip
+- **Unified tool** - replaces pip, poetry, pyenv
+- **Reliable** - global caching & lockfiles
+- **Cross-platform** - Mac, Windows, Linux
+:::
+
+::: {.column width="50%"}
+### Built with Rust 🦀
+
+- Compiled to machine code
+- Parallel processing
+- No GC pauses
+- Minimal memory
+
+:::
+::::
+
+---
+
+## Install Aider Globally
+
+### Using uv
+
+```bash
+uv tool install aider-chat
+```
+
+**What is Aider?**
+
+::: {.incremental}
+- AI pair programmer in your terminal
+- Direct file editing
+- Git integration
+- Whole codebase context
+- Works with any LLM (we'll use Gemini)
+::: 
+---
+
+# Part 2: Project Initialization
+
+---
+
+## Create Your Project
+
+### Step-by-Step Setup
+
+```bash
+# Create project directory
+mkdir igad-dashboard
+cd igad-dashboard
+
+# Initialize with Python 3.12
+uv init --python 3.12
+```
+
+---
+
+## What Gets Created
+
+::: {.incremental}
+- `.python-version` - Specifies Python 3.12
+- `pyproject.toml` - Project configuration
+- `.venv/` - Isolated environment
+- `.gitignore` - Pre-configured
+:::
+
+---
+
+# Part 3: Configuration
+
+---
+
+## Get Gemini API Key {transition="zoom-in fade-out" transition-speed="slow"}
+
+### Step 1: Visit Google AI Studio
+
+::: {.incremental}
+1. Go to **[Google AI Studio](https://aistudio.google.com/)**
+2. Click **Create API Key**
+3. Copy the key string (starts with `AIza...`)
+:::
+
+---
+
+## Create Aider Config File
+
+### File: `.aider.conf.yml`
+
+```yaml
+# Model Selection
+model: gemini/gemini-1.5-pro-latest
+
+# Git Settings: Disable auto-commit to allow manual review
+auto-commits: false
+
+# API Key Configuration
+api-key:
+  - gemini=YOUR_ACTUAL_API_KEY_HERE
+```
+
+::: {.callout-tip}
+🚨 **Add `.aider.conf.yml` to `.gitignore`!**
+:::
+
+---
+
+## Security: Update .gitignore
+
+### Always protect your API keys
+
+```bash
+# Add to .gitignore
+.aider.conf.yml
+.env
+*.env
+```
+
+---
+
+# Part 4: Installing Dependencies
+
+---
+
+## Install Required Libraries
+
+### Add all dependencies upfront
+
+```bash
+uv add streamlit pandas matplotlib seaborn numpy plotly scikit-learn
+```
+
+**Optional: Add Jupyter/Notebook support**
+
+```bash
+uv add jupyter notebook ipykernel lab
+```
+
+---
+
+## Why Install Dependencies First?
+
+::: {.incremental}
+- Aider will use them during test generation
+- **TDD** (**T**est-**D**riven **D**evelopment) requires dependencies to be available
+- Ensures tests can run immediately
+- Prevents import errors during development
+:::
+
+---
+
+# Part 5: The Development Workflow
+
+---
+
+## Launch Aider
+
+### Basic Command
+
+```bash
+aider --no-auto-commits
+```
+
+**You'll see:**
+
+```
+Aider v0.x.x
+Model: gemini/gemini-1.5-pro-latest
+Git repo: .git
+>
+```
+
+---
+
+## The Four-Step Process
+
+::: {.incremental}
+1. **Context & Requirements** - Set up the "Expert" persona
+2. **Freeze the Spec** - Lock requirements to prevent scope creep
+3. **Planning & TDD** - Break work into testable tasks
+4. **The Loop** - Iterate through tasks automatically
+:::
+
+---
+
+## Step A: Context & Requirements
+
+### The "Expert" Persona Approach
+
+**Ask Aider to create a PRD.md file in a new directory called `context`**
+
+```bash
+/add context/PRD.md
+```
+
+**What is a PRD?** **PRD** (**P**roduct **R**equirements **D**ocument) outlines what the software needs to do, who it's for, and how it should work.
+
+---
+
+## Step A: The Expert Prompt {.smaller}
+
+```
+You are an expert Data Scientist working for 
+The Intergovernmental Authority on Development (IGAD) 
+in Eastern Africa.
+
+We need to prepare a high-level presentation for IGAD 
+leadership regarding the current state of malaria and 
+other diseases in the region.
+
+Please fill out the `context/PRD.md` file to outline 
+the requirements for a new Streamlit application.
+
+The application must:
+1. Allow users to upload new CSV files that match the 
+   schema/headings of the two files in the `data/` folder
+2. Automatically perform Exploratory Data Analysis (EDA) 
+   upon file upload
+3. Generate visualizations relevant to the IGAD region 
+   (Djibouti, Ethiopia, Kenya, Somalia, South Sudan, 
+   Sudan, Uganda)
+
+Analyze the columns in the provided data files to ensure 
+the PRD technical specifications are accurate.
+```
+
+---
+
+## Step B: Freezing the Spec
+
+### Lock Requirements
+
+Once the PRD is generated, prevent AI from changing it:
+
+```bash
+/read-only context/PRD.md
+```
+
+
+**Why?**
+
+::: {.incremental}
+- Prevents scope creep
+- Maintains focus
+- Ensures consistency
+:::
+
+---
+
+## Step C: Planning & TDD
+
+### Create Task List
+
+**Ask Aider to create a TASKS.md file in the same directory called `context`**
+
+```bash
+/add context/TASKS.md
+```
+---
+
+**The Prompt:**
+
+```
+Create a markdown file with the tasks to complete 
+the PRD. Make each task concrete, use TDD as per PRD. 
+Give each task a number. Also, put a checkmark ('[ ]') 
+next to each task to track completion.
+```
+
+---
+
+## What Aider Creates
+
+### Example Task List
+
+```markdown
+## Tasks
+
+- [ ] 1. Set up project structure
+- [ ] 2. Create file upload component
+- [ ] 3. Implement CSV validation
+- [ ] 4. Add EDA functions
+- [ ] 5. Create visualization module
+- [ ] 6. Build main dashboard layout
+- [ ] 7. Write tests for each component
+```
+
+---
+
+## Step D: The Loop
+
+### The Simple Iteration Command
+
+```
+Please proceed to the next task.
+```
+
+
+**That's it!**
+
+::: {.incremental}
+- Aider checks off completed tasks
+- Moves to the next item
+- Writes code + tests
+- Commits to git
+- Repeat until done
+:::
+
+---
+
+## Essential Aider Commands
+
+::: {.incremental}
+- `/add file.py` - Add file to context
+- `/read-only file.py` - Prevent modifications
+- `/drop file.py` - Remove from context
+- `/ls` - List files in context
+- `/undo` - Undo last change
+- `/diff` - Show pending changes
+- `/help` - Show all commands
+- `/exit` - Exit aider
+:::
+
+---
+
+# Part 6: Running the Application
+
+---
+
+## Launch the App
+
+### Using uv run
+
+```bash
+uv run streamlit run app.py
+```
+
+**No activation needed!** 
+
+`uv run` automatically uses the virtual environment
+
+---
+
+## Key Principles
+
+**Isolated environments**
+
+- Use `uv` for reproducible dependencies
+- Fast, reliable, consistent
+
+---
+
+## Resources
+
+### Documentation
+
+::: {.incremental}
+- **uv**: docs.astral.sh/uv
+- **Aider**: aider.chat/docs
+- **Google AI Studio**: aistudio.google.com
+- **Streamlit**: docs.streamlit.io
+:::
+
+---
+
+## What's Next?
+
+::: {.incremental}
+1. Set up your own dashboard project
+2. Try the expert persona approach
+3. Experiment with task decomposition
+4. Share your results with the team
+5. Build more AI-assisted projects!
+:::
+
+---
+
+## Let's Build Something Amazing! 🚀
+
+### Your Turn
+
+::: {.incremental}
+1. Install uv and Aider
+2. Get your Gemini API key
+3. Create your project
+4. Install dependencies with uv add
+5. Follow the 4-step workflow
+6. Deploy your dashboard!
+:::
+
+---
+
+## Summary: Modern Python Development
+
+::: {.incremental}
+- ⚡ **uv** - 10-100x faster package management
+- 🤖 **Aider** - AI pair programmer in your terminal
+- 🎯 **Gemini 1.5 Pro** - Powerful LLM for code generation
+- 📊 **Streamlit** - Rapid dashboard development
+- 🔄 **Iterative workflow** - Expert persona + task loops
+:::
+
+---
+
+## Questions?
+
+---
+
+## **Thank You!** 🎉
+
+**Happy coding!** 💻✨

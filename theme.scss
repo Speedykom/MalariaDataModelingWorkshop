@@ -1,0 +1,171 @@
+/*----------------------------------------
+  1. DEFAULTS
+  (Variables & Quarto Overrides)
+----------------------------------------*/
+/*-- scss:defaults --*/
+
+// --- The Palette ---
+$deep-ocean:    #004367; // Used for Text/Headings now
+$ocean-light:   #f0f4f8; // Very light blue for subtle gradients
+$neon-teal:     #56A09A; // Accents
+$pure-white:    #FFFFFF; // The background color of your image
+
+// --- Quarto/Bootstrap Overrides ---
+$body-bg:       $pure-white;    // CHANGED: Matches your logo background
+$body-color:    $deep-ocean;    // CHANGED: Text is now dark blue for contrast
+$link-color:    $neon-teal;
+$selection-bg:  $neon-teal;
+$selection-color: $pure-white;
+
+// --- Typography ---
+$font-family-sans-serif: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$presentation-heading-font: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$presentation-heading-color: $deep-ocean; // CHANGED: Headings are now dark blue
+
+/*----------------------------------------
+  2. RULES
+  (Visual Styling & CSS)
+----------------------------------------*/
+/*-- scss:rules --*/
+
+.reveal {
+
+  /* --- 1. Background & Gradients --- */
+  // CHANGED: Subtle white-to-light-grey gradient to match the white logo but add depth
+  .slide-background {
+    background: linear-gradient(160deg, $pure-white 0%, $ocean-light 100%);
+  }
+
+  /* --- 2. Typography Hierarchy --- */
+  h1 {
+    color: $deep-ocean; // Dark Blue
+    font-weight: 800;
+    // text-shadow removed as it looks messy on white backgrounds
+    border-bottom: 3px solid $neon-teal;
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+
+  h2 {
+    color: $neon-teal;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  h3, h4, h5 {
+    color: lighten($deep-ocean, 20%); // Lighter blue for subheadings
+    font-weight: 400;
+  }
+
+  /* --- 3. Links --- */
+  a {
+    color: $neon-teal !important;
+    text-decoration: none;
+    border-bottom: 1px dotted transparent;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $deep-ocean !important;
+      border-bottom: 1px solid $deep-ocean;
+    }
+  }
+
+  /* --- 4. Lists & Bullets --- */
+  ul {
+    list-style-type: none; 
+    
+    li {
+      position: relative;
+      padding-left: 1.5em;
+      margin-bottom: 0.5em;
+      color: $deep-ocean;
+
+      &::before {
+        content: "▹"; 
+        color: $neon-teal;
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+      }
+    }
+  }
+
+  /* --- 5. Code Blocks (Dark Box) --- */
+  
+  // 1. The container (the box)
+  pre {
+    background-color: #004367 !important; // Deep Ocean Background
+    border: 1px solid #56A09A;            // Teal Border
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); // Drop shadow for depth
+    padding: 10px;
+  }
+
+  // 2. The text inside
+  pre > code {
+    color: #f0f4f8 !important;  // Light text color
+    background-color: transparent !important;
+  }
+
+  /* --- 6. Blockquotes --- */
+  blockquote {
+    background: linear-gradient(90deg, rgba(86, 160, 154, 0.1) 0%, transparent 100%);
+    border-left: 6px solid $neon-teal;
+    padding: 20px;
+    font-style: italic;
+    color: $deep-ocean;
+    box-shadow: none;
+  }
+
+  /* --- 7. UI Controls --- */
+  .controls {
+    color: $deep-ocean !important;
+  }
+  
+  .progress {
+    background: rgba(0, 67, 103, 0.1) !important; // Faint blue track
+    height: 6px;
+    
+    span {
+      background: $neon-teal !important;
+      box-shadow: 0 0 5px $neon-teal; 
+    }
+  }
+
+  /* --- 8. Utility Classes --- */
+  .highlight {
+    background-color: $neon-teal;
+    color: $pure-white;
+    padding: 0 5px;
+    border-radius: 3px;
+    font-weight: bold;
+  }
+
+  .small { font-size: 0.75em; }
+  .large { font-size: 1.5em; }
+  
+  /* --- 9. Logo Styling --- */
+  
+  // QUARTO CORNER LOGO
+  .slide-logo {
+    // Increase height (default is usually small)
+    max-height: 180px !important;  
+    
+    // CRITICAL: Since your logo is wide, this number must be huge 
+    // to prevent it from shrinking.
+    max-width: 450px !important;   
+    
+    height: auto !important;
+    width: auto !important;
+  }
+  
+  // Images
+  img:not(.slide-logo) {
+    max-width: 80% !important;
+    height: auto !important;
+    display: block;
+    margin: 1rem auto !important;
+    // Optional: Adds a slight shadow to images so they don't disappear into the white background
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+  }
+}
