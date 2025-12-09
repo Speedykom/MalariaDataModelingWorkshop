@@ -17,6 +17,42 @@ scrollable: false
     
 ---
 
+## 📱 Follow Along on Your Device
+
+Scan this code to view the slides on your phone or laptop:
+
+```{python}
+#| echo: false
+#| warning: false
+#| output: true
+#| fig-align: center
+
+import qrcode
+import matplotlib.pyplot as plt
+
+# 1. Define your URL
+url = "https://Speedykom.github.io/MalariaDataModelingWorkshop/"
+
+# 2. Generate the QR Code
+qr = qrcode.QRCode(
+    version=1,
+    box_size=10,
+    border=2
+)
+qr.add_data(url)
+qr.make(fit=True)
+
+img = qr.make_image(fill_color="black", back_color="white")
+
+# 3. Display it as a plot (removes axes for a clean look)
+plt.figure(figsize=(6, 6)) # Adjust size as needed
+plt.imshow(img, cmap='gray')
+plt.axis('off')
+plt.show()
+```
+
+---
+
 ## What We'll Cover Today
 
 ::: {.incremental}
