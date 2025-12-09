@@ -146,15 +146,19 @@ uv init --python 3.12
 ### File: `.aider.conf.yml`
 
 ```yaml
-# Model Selection
-model: gemini/gemini-1.5-pro-latest
+# ~/.aider.conf.yml
 
-# Git Settings: Disable auto-commit to allow manual review
-auto-commits: false
-
-# API Key Configuration
+# 1. Add your Google Gemini API key
+# Get one from https://aistudio.google.com/api-keys
 api-key:
-  - gemini=YOUR_ACTUAL_API_KEY_HERE
+ - gemini=AIza...
+ 
+
+# 2. Set your default model
+# This uses gemini 2.5 pro
+model: gemini
+# 3. Optional: Enable caching to save on costs
+cache-prompts: true
 ```
 
 ::: {.callout-tip}
@@ -245,42 +249,17 @@ Git repo: .git
 
 ### The "Expert" Persona Approach
 
-**Ask Aider to create a PRD.md file in a new directory called `context`**
+**Ask Aider to create a PRD.md and TASKS.md files in a new directory called `context`**
+
+I decided to cut to the chase and create a PROMPT.md file that gives AIDER the necessary instructions on how to do this.
 
 ```bash
-/add context/PRD.md
+follow the instructions on PROMPT.md
 ```
+---
 
 **What is a PRD?** **PRD** (**P**roduct **R**equirements **D**ocument) outlines what the software needs to do, who it's for, and how it should work.
 
----
-
-## Step A: The Expert Prompt {.smaller}
-
-```
-You are an expert Data Scientist working for 
-The Intergovernmental Authority on Development (IGAD) 
-in Eastern Africa.
-
-We need to prepare a high-level presentation for IGAD 
-leadership regarding the current state of malaria and 
-other diseases in the region.
-
-Please fill out the `context/PRD.md` file to outline 
-the requirements for a new Streamlit application.
-
-The application must:
-1. Allow users to upload new CSV files that match the 
-   schema/headings of the two files in the `data/` folder
-2. Automatically perform Exploratory Data Analysis (EDA) 
-   upon file upload
-3. Generate visualizations relevant to the IGAD region 
-   (Djibouti, Ethiopia, Kenya, Somalia, South Sudan, 
-   Sudan, Uganda)
-
-Analyze the columns in the provided data files to ensure 
-the PRD technical specifications are accurate.
-```
 
 ---
 
@@ -311,19 +290,7 @@ Once the PRD is generated, prevent AI from changing it:
 
 **Ask Aider to create a TASKS.md file in the same directory called `context`**
 
-```bash
-/add context/TASKS.md
-```
----
-
-**The Prompt:**
-
-```
-Create a markdown file with the tasks to complete 
-the PRD. Make each task concrete, use TDD as per PRD. 
-Give each task a number. Also, put a checkmark ('[ ]') 
-next to each task to track completion.
-```
+This was already accomplished from the instructions on the PROMPT.md. You can check the folder visually to confirm.
 
 ---
 

@@ -1166,15 +1166,19 @@ margin-right: 0; }
 <section id="create-aider-config-file" class="slide level2">
 <h2>Create Aider Config File</h2>
 <h3 id="file-.aider.conf.yml">File: <code>.aider.conf.yml</code></h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href></a><span class="co"># Model Selection</span></span>
-<span id="cb5-2"><a href></a><span class="fu">model</span><span class="kw">:</span><span class="at"> gemini/gemini-1.5-pro-latest</span></span>
-<span id="cb5-3"><a href></a></span>
-<span id="cb5-4"><a href></a><span class="co"># Git Settings: Disable auto-commit to allow manual review</span></span>
-<span id="cb5-5"><a href></a><span class="fu">auto-commits</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb5-6"><a href></a></span>
-<span id="cb5-7"><a href></a><span class="co"># API Key Configuration</span></span>
-<span id="cb5-8"><a href></a><span class="fu">api-key</span><span class="kw">:</span></span>
-<span id="cb5-9"><a href></a><span class="at">  </span><span class="kw">-</span><span class="at"> gemini=YOUR_ACTUAL_API_KEY_HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href></a><span class="co"># ~/.aider.conf.yml</span></span>
+<span id="cb5-2"><a href></a></span>
+<span id="cb5-3"><a href></a><span class="co"># 1. Add your Google Gemini API key</span></span>
+<span id="cb5-4"><a href></a><span class="co"># Get one from https://aistudio.google.com/api-keys</span></span>
+<span id="cb5-5"><a href></a><span class="fu">api-key</span><span class="kw">:</span></span>
+<span id="cb5-6"><a href></a><span class="at"> </span><span class="kw">-</span><span class="at"> gemini=AIza...</span></span>
+<span id="cb5-7"><a href></a><span class="at"> </span></span>
+<span id="cb5-8"><a href></a></span>
+<span id="cb5-9"><a href></a><span class="co"># 2. Set your default model</span></span>
+<span id="cb5-10"><a href></a><span class="co"># This uses gemini 2.5 pro</span></span>
+<span id="cb5-11"><a href></a><span class="fu">model</span><span class="kw">:</span><span class="at"> gemini</span></span>
+<span id="cb5-12"><a href></a><span class="co"># 3. Optional: Enable caching to save on costs</span></span>
+<span id="cb5-13"><a href></a><span class="fu">cache-prompts</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1251,40 +1255,19 @@ Git repo: .git
 <section id="step-a-context-requirements" class="slide level2">
 <h2>Step A: Context &amp; Requirements</h2>
 <h3 id="the-expert-persona-approach">The “Expert” Persona Approach</h3>
-<p><strong>Ask Aider to create a PRD.md file in a new directory called <code>context</code></strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href></a><span class="ex">/add</span> context/PRD.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>What is a PRD?</strong> <strong>PRD</strong> (<strong>P</strong>roduct <strong>R</strong>equirements <strong>D</strong>ocument) outlines what the software needs to do, who it’s for, and how it should work.</p>
+<p><strong>Ask Aider to create a PRD.md and TASKS.md files in a new directory called <code>context</code></strong></p>
+<p>I decided to cut to the chase and create a PROMPT.md file that gives AIDER the necessary instructions on how to do this.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href></a><span class="ex">follow</span> the instructions on PROMPT.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="step-a-the-expert-prompt" class="slide level2 smaller">
-<h2>Step A: The Expert Prompt</h2>
-<pre><code>You are an expert Data Scientist working for 
-The Intergovernmental Authority on Development (IGAD) 
-in Eastern Africa.
+<section class="slide level2">
 
-We need to prepare a high-level presentation for IGAD 
-leadership regarding the current state of malaria and 
-other diseases in the region.
-
-Please fill out the `context/PRD.md` file to outline 
-the requirements for a new Streamlit application.
-
-The application must:
-1. Allow users to upload new CSV files that match the 
-   schema/headings of the two files in the `data/` folder
-2. Automatically perform Exploratory Data Analysis (EDA) 
-   upon file upload
-3. Generate visualizations relevant to the IGAD region 
-   (Djibouti, Ethiopia, Kenya, Somalia, South Sudan, 
-   Sudan, Uganda)
-
-Analyze the columns in the provided data files to ensure 
-the PRD technical specifications are accurate.</code></pre>
+<p><strong>What is a PRD?</strong> <strong>PRD</strong> (<strong>P</strong>roduct <strong>R</strong>equirements <strong>D</strong>ocument) outlines what the software needs to do, who it’s for, and how it should work.</p>
 </section>
 <section id="step-b-freezing-the-spec" class="slide level2">
 <h2>Step B: Freezing the Spec</h2>
 <h3 id="lock-requirements">Lock Requirements</h3>
 <p>Once the PRD is generated, prevent AI from changing it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href></a><span class="ex">/read-only</span> context/PRD.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href></a><span class="ex">/read-only</span> context/PRD.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Why?</strong></p>
 <ul>
 <li class="fragment">Prevents scope creep</li>
@@ -1296,28 +1279,20 @@ the PRD technical specifications are accurate.</code></pre>
 <h2>Step C: Planning &amp; TDD</h2>
 <h3 id="create-task-list">Create Task List</h3>
 <p><strong>Ask Aider to create a TASKS.md file in the same directory called <code>context</code></strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href></a><span class="ex">/add</span> context/TASKS.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section class="slide level2">
-
-<p><strong>The Prompt:</strong></p>
-<pre><code>Create a markdown file with the tasks to complete 
-the PRD. Make each task concrete, use TDD as per PRD. 
-Give each task a number. Also, put a checkmark (&#39;[ ]&#39;) 
-next to each task to track completion.</code></pre>
+<p>This was already accomplished from the instructions on the PROMPT.md. You can check the folder visually to confirm.</p>
 </section>
 <section id="what-aider-creates" class="slide level2">
 <h2>What Aider Creates</h2>
 <h3 id="example-task-list">Example Task List</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href></a><span class="fu">## Tasks</span></span>
-<span id="cb16-2"><a href></a></span>
-<span id="cb16-3"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 1. Set up project structure</span>
-<span id="cb16-4"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 2. Create file upload component</span>
-<span id="cb16-5"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 3. Implement CSV validation</span>
-<span id="cb16-6"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 4. Add EDA functions</span>
-<span id="cb16-7"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 5. Create visualization module</span>
-<span id="cb16-8"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 6. Build main dashboard layout</span>
-<span id="cb16-9"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 7. Write tests for each component</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href></a><span class="fu">## Tasks</span></span>
+<span id="cb13-2"><a href></a></span>
+<span id="cb13-3"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 1. Set up project structure</span>
+<span id="cb13-4"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 2. Create file upload component</span>
+<span id="cb13-5"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 3. Implement CSV validation</span>
+<span id="cb13-6"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 4. Add EDA functions</span>
+<span id="cb13-7"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 5. Create visualization module</span>
+<span id="cb13-8"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 6. Build main dashboard layout</span>
+<span id="cb13-9"><a href></a><span class="ss">- </span><span class="va">[ ]</span> 7. Write tests for each component</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="step-d-the-loop" class="slide level2">
 <h2>Step D: The Loop</h2>
@@ -1356,7 +1331,7 @@ next to each task to track completion.</code></pre>
 <section id="launch-the-app" class="slide level2">
 <h2>Launch the App</h2>
 <h3 id="using-uv-run">Using uv run</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href></a><span class="ex">uv</span> run streamlit run app.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href></a><span class="ex">uv</span> run streamlit run app.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>No activation needed!</strong></p>
 <p><code>uv run</code> automatically uses the virtual environment</p>
 </section>
