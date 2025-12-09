@@ -3,6 +3,7 @@ title: "Malaria Data Modeling workshop"
 subtitle: "Introduction to uv, VSCode, Streamlit and Aider"
 format:
   revealjs:
+    output-file: index.html
     highlight-style: monokai # or 'dracula' or 'nord'
     theme: [default, theme.scss]
     transition: concave
