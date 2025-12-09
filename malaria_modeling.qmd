@@ -470,7 +470,7 @@ uv run streamlit run app.py
 
 ## **Thank You!** 🎉
 
-**Happy coding!** 💻✨
+**Happy Vibe Coding!** 💻✨
 
 Get the entire files here.
 
