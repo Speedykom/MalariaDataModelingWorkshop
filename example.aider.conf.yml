@@ -1,13 +1,13 @@
 # ~/.aider.conf.yml
 
-# 1. Add your Google Gemini API key
-# Get one from https://aistudio.google.com/api-keys
+# 1. Add your openRouter API key
+# Get one from https://openrouter.ai/settings/keys
 api-key:
- - gemini=AIza...
+ - openrouter=sk-...
  
 
 # 2. Set your default model
-# This uses gemini 2.5 pro
-model: gemini
+# Assuming we are using Deepseek...
+model: deepseek/deepseek-v3.2
 # 3. Optional: Enable caching to save on costs
 cache-prompts: true

@@ -58,7 +58,7 @@ plt.show()
 ::: {.incremental}
 1. **Installing Tools** - uv and Aider setup
 2. **Project Initialization** - Creating your workspace
-3. **Configuration** - Gemini API and Aider settings
+3. **Configuration** - OpenRouter API and Aider settings
 4. **Installing Dependencies** - Adding required libraries
 5. **The Development Workflow** - Building with AI
 6. **Running the Application** - Launching your dashboard
@@ -70,7 +70,7 @@ plt.show()
 
 ---
 
-## Install uv {transition="zoom-in fade-out" transition-speed="slow"}
+## Install uv {.smaller transition="zoom-in fade-out" transition-speed="slow"}
 
 **uv** is an extremely fast Python package and project manager, written in Rust 🦀
 
@@ -85,6 +85,26 @@ winget install --id astral-sh.uv
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
+**Check if installed correctly**
+
+```bash
+uv --version
+```
+
+---
+
+## Install uv {.smaller transition=fade}
+
+**uv** is an extremely fast Python package and project manager, written in Rust 🦀
+
+### From Github releases
+
+```markdown
+https://github.com/astral-sh/uv/releases
+```
+
+![](imgs/github_releases.png){width="80%"}
 
 ---
 
@@ -118,7 +138,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ### Using uv
 
 ```bash
-uv tool install aider-chat
+uv tool install aider-chat --python 3.12 --force
 ```
 
 **What is Aider?**
@@ -136,71 +156,150 @@ uv tool install aider-chat
 
 ---
 
-## Create Your Project
+## Download from Github repo {.smaller transition="zoom-in fade-out" transition-speed="slow"}
 
-### Step-by-Step Setup
+```{python}
+#| echo: false
+#| warning: false
+#| output: true
+#| fig-align: center
 
-```bash
-# Create project directory
-mkdir igad-dashboard
-cd igad-dashboard
+import qrcode
+import matplotlib.pyplot as plt
 
-# Initialize with Python 3.12
-uv init --python 3.12
+# 1. Define your URL
+url = "https://github.com/Speedykom/MalariaDataModelingWorkshop"
+
+# 2. Generate the QR Code
+qr = qrcode.QRCode(
+    version=1,
+    box_size=10,
+    border=2
+)
+qr.add_data(url)
+qr.make(fit=True)
+
+img = qr.make_image(fill_color="black", back_color="white")
+
+# 3. Display it as a plot (removes axes for a clean look)
+plt.figure(figsize=(6, 6)) # Adjust size as needed
+plt.imshow(img, cmap='gray')
+plt.axis('off')
+plt.show()
 ```
 
 ---
 
-## What Gets Created
+## Download from Github repo {.smaller transition="fade"}
 
-::: {.incremental}
-- `.python-version` - Specifies Python 3.12
-- `pyproject.toml` - Project configuration
-- `.venv/` - Isolated environment
-- `.gitignore` - Pre-configured
-:::
+![](imgs/github_repo.png){width="100%" fig-align="center"}
+
+**Unzip the file and cd into it**
+```bash
+# move into the directory
+cd MalariaDataModelingWorkshop-main
+```
 
 ---
+
 
 # Part 3: Configuration
 
 ---
 
-## Get Gemini API Key {transition="zoom-in fade-out" transition-speed="slow"}
 
-### Step 1: Visit Google AI Studio
+## OpenRouter {.smaller transition="fade"}
 
-::: {.incremental}
-1. Go to **[Google AI Studio](https://aistudio.google.com/)**
-2. Click **Create API Key**
-3. Copy the key string (starts with `AIza...`)
+:::: {.columns}
+
+::: {.column width="60%"}
+**Why we are choosing it:**
+
+* **Unified Access:** Connect to Deepseek, OpenAI, Google, etc via one key.
+* **Privacy First:** Settings for "Zero Data Retention."
+* **Future Proof:** New models are available almost immediately.
+* **Best Prices:** easy access to low-cost open-source models.
 :::
+
+::: {.column width="40%"}
+![](imgs/openrouter_logo.png){width="100%" fig-align="center"}
+
+*A "Universal Adapter" for AI*
+:::
+
+::::
 
 ---
 
-## Create Aider Config File
+## OpenRouter {transition="fade"}
 
-### File: `.aider.conf.yml`
+:::: {.columns}
+
+::: {.column width="70%"}
+**Get the API KEY**
+
+![](imgs/openrouter_page.png){width="100%" fig-align="center"}
+
+:::
+
+::: {.column width="30%"}
+```markdown
+https://openrouter.ai/
+```
+
+*A "Universal Adapter" for AI*
+:::
+
+::::
+
+---
+
+## OpenRouter {transition="fade"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Get the API KEY**
+
+![](imgs/openrouter_apikey.png){width="100%" fig-align="center"}
+
+:::
+
+::: {.column width="50%"}
+
+
+![](imgs/openrouter_apikey2.png){width="100%" fig-align="center"}
+
+![](imgs/openrouter_model.png){width="100%" fig-align="center"}
+
+:::
+
+::::
+
+---
+
+## Create Aider Config File {.smaller}
+
+check the directory for the file below and edit:
+
+**`example.aider.conf.yml`**
 
 ```yaml
 # ~/.aider.conf.yml
 
-# 1. Add your Google Gemini API key
-# Get one from https://aistudio.google.com/api-keys
+# 1. Add your openRouter API key
+# Get one from https://openrouter.ai/settings/keys
 api-key:
- - gemini=AIza...
+ - openrouter=sk-...
  
 
 # 2. Set your default model
-# This uses gemini 2.5 pro
-model: gemini
+# Assuming we are using Deepseek...
+model: deepseek/deepseek-v3.2
 # 3. Optional: Enable caching to save on costs
 cache-prompts: true
 ```
-
-::: {.callout-tip}
-🚨 **Add `.aider.conf.yml` to `.gitignore`!**
-:::
+**change the name to `.aider.conf.yml` and save**
 
 ---
 
@@ -226,13 +325,7 @@ cache-prompts: true
 ### Add all dependencies upfront
 
 ```bash
-uv add streamlit pandas matplotlib seaborn numpy plotly scikit-learn
-```
-
-**Optional: Add Jupyter/Notebook support**
-
-```bash
-uv add jupyter notebook ipykernel lab
+uv sync
 ```
 
 ---
@@ -271,6 +364,16 @@ Git repo: .git
 
 ---
 
+## If the last launch fails...
+
+**...try the following**
+
+```bash
+uvx --python 3.12 aider --model openrouter/deepseek/deepseek-v3.2 --api-key gemini=YOUR_OPENROUTER_API_KEY
+```
+
+---
+
 ## The Four-Step Process
 
 ::: {.incremental}
@@ -286,16 +389,7 @@ Git repo: .git
 
 ### The "Expert" Persona Approach
 
-**Ask Aider to create a PRD.md and TASKS.md files in a new directory called `context`**
-
-I decided to cut to the chase and create a PROMPT.md file that gives AIDER the necessary instructions on how to do this.
-
-```bash
-follow the instructions on PROMPT.md
-```
----
-
-**What is a PRD?** **PRD** (**P**roduct **R**equirements **D**ocument) outlines what the software needs to do, who it's for, and how it should work.
+**Copy the prompt from the PROMPT.md file and paste**
 
 
 ---
@@ -325,9 +419,7 @@ Once the PRD is generated, prevent AI from changing it:
 
 ### Create Task List
 
-**Ask Aider to create a TASKS.md file in the same directory called `context`**
-
-This was already accomplished from the instructions on the PROMPT.md. You can check the folder visually to confirm.
+**This was already accomplished from the instructions on the PROMPT.md. You can check the folder visually to confirm.**
 
 ---
 
