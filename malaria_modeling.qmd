@@ -235,19 +235,18 @@ cd MalariaDataModelingWorkshop-main
 
 :::: {.columns}
 
-::: {.column width="70%"}
+::: {.column width="60%"}
 **Get the API KEY**
 
 ![](imgs/openrouter_page.png){width="100%" fig-align="center"}
 
 :::
 
-::: {.column width="30%"}
+::: {.column width="40%"}
 ```markdown
 https://openrouter.ai/
 ```
 
-*A "Universal Adapter" for AI*
 :::
 
 ::::
