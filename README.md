@@ -1,181 +1,27 @@
-# IGAD Malaria & Disease Dashboard Project
-
-Click [here](https://speedykom.github.io/MalariaDataModelingWorkshop/#/title-slide) to view the presentation.
-
-
-## Aider + uv Workflow Guide
-
-This document outlines the step-by-step process used to build the IGAD Streamlit dashboard using uv (for package management) and Aider (AI pair programmer) with the Gemini 1.5 Pro model.
-
----
-
-## 1. Installation & Setup
-
-### Install Tools
-
-First, we installed the necessary tools. `uv` is used for fast Python package management, and it is used to install Aider.
-
-#### 1. Install uv
-
-**Windows (using winget):**
-
-```bash
-winget install --id astral-sh.uv
-```
-
-**macOS & Linux (Ubuntu):**
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-#### 2. Install Aider globally using uv
-
-```bash
-uv tool install aider-chat
-```
-
-### Project Initialization
-
-We created a project directory and initialized a standard Python environment.
-
-```bash
-mkdir igad-dashboard
-cd igad-dashboard
-uv init
-```
-
----
-
-## 2. Configuration
-
-We created a configuration file to manage the Gemini API key and Git behavior.
-
-### Get Gemini API Key
-
-Before configuring Aider, you need an API key from Google.
-
-1. Go to [Google AI Studio](https://aistudio.google.com/)
-2. Click **Create API Key**
-3. Copy the key string (it typically starts with `AIza...`)
-
-### Create Config File
-
-Create a file named `.aider.conf.yml` in your project root and paste your key below.
-
-**File: `.aider.conf.yml`**
-
-```yaml
-# Model Selection
-model: gemini/gemini-1.5-pro-latest
-
-# Git Settings: Disable auto-commit to allow manual review
-auto-commits: false
-
-# API Key Configuration
-api-key:
-  - gemini=YOUR_ACTUAL_API_KEY_HERE
-```
-
-### Launch Command
-
-We launch Aider ensuring it doesn't auto-commit (redundant with config, but good practice):
-
-```bash
-aider --no-auto-commits
-```
-
----
-
-## 3. The Development Workflow
-
-### Step A: Context & Requirements (The "Expert" Persona)
-
-We started by adding the raw data files and a target PRD file to the chat context. This allowed Aider to see the actual column headers in our CSVs.
-
-**Aider Command:**
-
-```bash
-/add context/PRD.md data/dj_et_ke_so_ss_sd_ug_NationalUnit-data.csv data/flu_weather_dataset.csv
-```
-
-**The Prompt:**
-
-```
-You are an expert Data Scientist working for The Intergovernmental Authority on Development (IGAD) in Eastern Africa.
-
-We need to prepare a high-level presentation for IGAD leadership regarding the current state of malaria and other diseases in the region.
-
-Please fill out the `context/PRD.md` file to outline the requirements for a new Streamlit application.
-
-The application must:
-1. Allow users to upload new CSV files that match the schema/headings of the two files in the `data/` folder (which represent National Unit data and Flu/Weather data).
-2. Automatically perform Exploratory Data Analysis (EDA) upon file upload.
-3. Generate visualizations relevant to the IGAD region (Djibouti, Ethiopia, Kenya, Somalia, South Sudan, Sudan, Uganda) to highlight disease trends and weather correlations.
-
-Analyze the columns in the provided data files to ensure the PRD technical specifications are accurate.
-```
-
-### Step B: Freezing the Spec
-
-Once the PRD was generated, we locked it to prevent the AI from changing the requirements later.
-
-**Aider Command:**
-
-```bash
-/read-only context/PRD.md
-```
-
-### Step C: Planning & TDD
-
-We instructed Aider to break the work into small, testable tasks.
-
-**The Prompt:**
-
-```
-Create a markdown file with the tasks to complete the PRD. Make each task concrete, use TDD as per PRD. Give each task a number. Also, put a checkmark ('[ ]') next to each task to track completion.
-```
-
-### Step D: The Loop
-
-We entered a loop where we simply told Aider to move to the next item in the checklist it just created.
-
-**The Prompt:**
-
-```
-Please proceed to the next task.
-```
-
----
-
-## 4. Running the Application
-
-Once Aider finished writing the `app.py` code, we used `uv` to handle dependencies and execution.
-
-### Install Dependencies
-
-We added the libraries required by the generated code:
-
-```bash
-uv add streamlit pandas matplotlib seaborn
-```
-
-### Launch the App
-
-We used `uv run` to execute Streamlit inside the isolated virtual environment:
-
-```bash
-uv run streamlit run app.py
-```
-
----
-
-## Summary
-
-This workflow demonstrates how to leverage modern Python tooling (`uv`) and AI-assisted development (Aider with Gemini 1.5 Pro) to rapidly build a data-focused Streamlit application. The key principles are:
-
-- **Context-aware AI**: Feed real data files to Aider for accurate schema understanding
-- **Specification locking**: Use `/read-only` to prevent scope creep
-- **Task decomposition**: Break complex projects into small, testable units
-- **Iterative development**: Use a simple loop to progress through tasks
-- **Isolated environments**: Use `uv` for reproducible dependency management
+IGAD Malaria & Disease Dashboard ProjectClick here to view the presentation.🚀 Overview: Modern Python Development WorkflowThis project outlines a fast, reliable, and AI-assisted workflow for building data dashboards, leveraging powerful tools like uv, Aider, and Streamlit, powered by OpenRouter for unified LLM access.Key ToolsToolRoleDescription⚡ uvPackage ManagerExtremely fast Python package installer and project manager, written in Rust.🤖 AiderAI Pair ProgrammerTerminal-based AI tool that edits files, integrates with Git, and works with the entire codebase context.🎯 OpenRouterLLM GatewayProvides unified API access to various high-quality LLMs (like Deepseek and Gemini) via a single API key.📊 StreamlitDashboard FrameworkSimplifies the creation of interactive data applications and dashboards in pure Python.1. Installation & Setup1.1 Install uvuv is essential for managing virtual environments and dependencies quickly.Windows (using winget):winget install --id astral-sh.uv
+macOS & Linux (Ubuntu):curl -LsSf [https://astral.sh/uv/install.sh](https://astral.sh/uv/install.sh) | sh
+Verify Installation:uv --version
+1.2 Install Aider GloballyWe install Aider as a global tool using uv to ensure it is always available.uv tool install aider-chat --python 3.12 --force
+2. Project InitializationIf you are following along with the workshop, clone or download the repository files:git clone [https://github.com/Speedykom/MalariaDataModelingWorkshop](https://github.com/Speedykom/MalariaDataModelingWorkshop)
+cd MalariaDataModelingWorkshop
+3. Configuration3.1 Configure OpenRouter API KeyWe use OpenRouter for its unified access to multiple high-performance models and its privacy features.Navigate to https://openrouter.ai/ to get your API Key.Set up your key in the Aider configuration file.3.2 Create Aider Config FileRename the example configuration file and insert your API key.Rename example.aider.conf.yml to .aider.conf.yml.Edit the file to include your OpenRouter API Key and set your preferred model..aider.conf.yml template:# ~/.aider.conf.yml
+
+# 1. Add your openRouter API key
+api-key: # insert YOUR_OPENROUTER_API_KEY below
+ - openrouter=sk-...
+ 
+# 2. Set your default model (e.g., Deepseek or Mistral)
+model: openrouter/mistralai/devstral-2512:free
+
+# 3. Optional: Enable caching to save on costs
+cache-prompts: true
+3.3 SecurityProtect your configuration file by adding it to .gitignore:# Add to .gitignore
+.aider.conf.yml
+.env
+*.env
+4. Installing DependenciesUse uv sync to install all project dependencies defined in pyproject.toml into a dedicated virtual environment.uv sync
+5. The Development Workflow with AiderThe recommended workflow follows a four-step process for AI-assisted development:5.1 Launch AiderStart the AI pair programmer in your project directory:aider --no-auto-commits
+(Use --no-auto-commits initially if you want to review changes before they are committed.)5.2 The Four-Step Aider ProcessContext & Requirements: Set up the "Expert" persona and paste the detailed requirements from your PROMPT.md file.Freeze the Spec: Lock the PRD to prevent the AI from changing core requirements./read-only context/PRD.md
+Planning & TDD: Break the work into small, testable tasks (often done automatically based on the prompt).The Loop: Iterate through tasks by simply asking Aider to proceed.Please proceed to the next task.
+5.3 Essential Aider CommandsCommandDescription/add file.pyAdd a file to the current context for editing/reference./read-only file.pyAdd a file to the context but prevent AI modifications./drop file.pyRemove a file from the context./lsList files currently in the context./undoUndo the last change made by Aider./exitExit the Aider session.6. Running the ApplicationOnce your app.py is developed, run the Streamlit dashboard using uv run. This automatically activates the virtual environment and launches the application.uv run streamlit run app.py
+7. Resourcesuv Documentation: https://docs.astral.sh/uv/OpenRouter: https://openrouter.ai/Aider Documentation: https://aider.chat/docsStreamlit Documentation: https://docs.streamlit.io
