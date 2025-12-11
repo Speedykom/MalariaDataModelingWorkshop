@@ -205,6 +205,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Start the AI pair programmer in your project directory:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span> <span class="at">--no-auto-commits</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>(Use <code>--no-auto-commits</code> initially if you want to review changes before they are committed.)</p>
+<p><strong>You’ll see:</strong></p>
+<pre><code>Aider v0.x.x
+Model: gemini/gemini-1.5-pro-latest
+Git repo: .git
+&gt;</code></pre>
+<section id="troubleshooting-if-the-launch-fails" class="level4">
+<h4 class="anchored" data-anchor-id="troubleshooting-if-the-launch-fails">Troubleshooting: If the Launch Fails</h4>
+<p>If the basic <code>aider</code> command doesn’t work (particularly on some Windows systems), try this alternative:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run <span class="at">--with</span> aider-chat python <span class="at">-m</span> aider <span class="at">--model</span> openrouter/<span class="op">&lt;</span>Model-Name<span class="op">&gt;</span> --api-key openrouter=YOUR_OPENROUTER_API_KEY</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Replace <code>&lt;Model-Name&gt;</code> with your desired model (e.g., <code>Deepseek/deepseek-v3.2</code> or <code>mistralai/devstral-2512:free</code>) and <code>YOUR_OPENROUTER_API_KEY</code> with your actual OpenRouter API key.</p>
+</section>
 </section>
 <section id="the-four-step-aider-process" class="level3">
 <h3 class="anchored" data-anchor-id="the-four-step-aider-process">5.2 The Four-Step Aider Process</h3>
@@ -262,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="running-the-application" class="level2">
 <h2 class="anchored" data-anchor-id="running-the-application">6. Running the Application</h2>
 <p>Once your <code>app.py</code> is developed, run the Streamlit dashboard using <code>uv run</code>. This automatically activates the virtual environment and launches the application.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run streamlit run app.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run streamlit run app.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">7. Resources</h2>

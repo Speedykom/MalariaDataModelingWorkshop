@@ -1,6 +1,6 @@
 # IGAD Malaria & Disease Dashboard Project
 
-[Click here to view the presentation.](#)
+[Click here to view the presentation.](https://Speedykom.github.io/MalariaDataModelingWorkshop/)
 
 ## 🚀 Overview: Modern Python Development Workflow
 
