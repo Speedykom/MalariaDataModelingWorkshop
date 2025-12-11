@@ -528,7 +528,7 @@ uv run streamlit run app.py
 
 ---
 
-## Let's Build Something Amazing! 🚀
+## Let's Build Something Amazing! 🚀 {transition="fade"}
 
 ### Your Turn
 
