@@ -368,7 +368,7 @@ Git repo: .git
 **...try the following**
 
 ```bash
-uvx --python 3.12 aider --model openrouter/deepseek/deepseek-v3.2 --api-key gemini=YOUR_OPENROUTER_API_KEY
+uv run --with aider-chat python -m aider --model openrouter/Deepseek/deepseek-v3.2 --api-key openrouter=YOUR_OPENROUTER_API_KEY
 ```
 
 ---
@@ -532,13 +532,40 @@ uv run streamlit run app.py
 
 ### Your Turn
 
+**Your next project**
+
+:::: {.columns}
+
+::: {.column width="50%"}
 ::: {.incremental}
-1. Install uv and Aider
-2. Get OpenRouter API key
-3. Create your project
-4. Install dependencies with uv sync
-5. Follow the 4-step workflow
-6. Deploy your dashboard!
+1. Create a new folder for your new project
+2. From this project copy the `pyproject.toml` & `.aider.conf.yml` files
+:::
+:::
+
+::: {.column width="50%"}
+![](imgs/files_2_copy.png){width="100%" fig-align="center"}
+:::
+
+::::
+
+---
+
+## Let's Build Something Amazing! {transition="fade"}🚀
+
+### Your Turn
+
+**Your next project**
+
+::: {.incremental}
+
+3. Paste these files into your new project
+4. Open the terminal from this new project
+5. Install dependencies with `uv sync` 
+6. Follow the 4-step workflow
+7. Create your own PROMPT.md. Use ChatGPT to help you.
+8. Deploy your fresh dashboard!
+
 :::
 
 ---
