@@ -85,137 +85,195 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="igad-malaria-disease-dashboard-project" class="level1">
 <h1>IGAD Malaria &amp; Disease Dashboard Project</h1>
-<p>Click <a href="https://speedykom.github.io/MalariaDataModelingWorkshop/#/title-slide">here</a> to view the presentation.</p>
-<section id="aider-uv-workflow-guide" class="level2">
-<h2 class="anchored" data-anchor-id="aider-uv-workflow-guide">Aider + uv Workflow Guide</h2>
-<p>This document outlines the step-by-step process used to build the IGAD Streamlit dashboard using uv (for package management) and Aider (AI pair programmer) with the Gemini 1.5 Pro model.</p>
-<hr>
+<p><a href="https://Speedykom.github.io/MalariaDataModelingWorkshop/">Click here to view the presentation.</a></p>
+<section id="overview-modern-python-development-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="overview-modern-python-development-workflow">🚀 Overview: Modern Python Development Workflow</h2>
+<p>This project outlines a fast, reliable, and AI-assisted workflow for building data dashboards, leveraging powerful tools like <strong>uv</strong>, <strong>Aider</strong>, and <strong>Streamlit</strong>, powered by <strong>OpenRouter</strong> for unified LLM access.</p>
+</section>
+<section id="key-tools" class="level2">
+<h2 class="anchored" data-anchor-id="key-tools">Key Tools</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Role</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>⚡ <strong>uv</strong></td>
+<td>Package Manager</td>
+<td>Extremely fast Python package installer and project manager, written in Rust.</td>
+</tr>
+<tr class="even">
+<td>🤖 <strong>Aider</strong></td>
+<td>AI Pair Programmer</td>
+<td>Terminal-based AI tool that edits files, integrates with Git, and works with the entire codebase context.</td>
+</tr>
+<tr class="odd">
+<td>🎯 <strong>OpenRouter</strong></td>
+<td>LLM Gateway</td>
+<td>Provides unified API access to various high-quality LLMs (like Deepseek and Gemini) via a single API key.</td>
+</tr>
+<tr class="even">
+<td>📊 <strong>Streamlit</strong></td>
+<td>Dashboard Framework</td>
+<td>Simplifies the creation of interactive data applications and dashboards in pure Python.</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="installation-setup" class="level2">
 <h2 class="anchored" data-anchor-id="installation-setup">1. Installation &amp; Setup</h2>
-<section id="install-tools" class="level3">
-<h3 class="anchored" data-anchor-id="install-tools">Install Tools</h3>
-<p>First, we installed the necessary tools. <code>uv</code> is used for fast Python package management, and it is used to install Aider.</p>
-<section id="install-uv" class="level4">
-<h4 class="anchored" data-anchor-id="install-uv">1. Install uv</h4>
+<section id="install-uv" class="level3">
+<h3 class="anchored" data-anchor-id="install-uv">1.1 Install uv</h3>
+<p><code>uv</code> is essential for managing virtual environments and dependencies quickly.</p>
 <p><strong>Windows (using winget):</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">winget</span> install <span class="at">--id</span> astral-sh.uv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>macOS &amp; Linux (Ubuntu):</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Verify Installation:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="install-aider-globally-using-uv" class="level4">
-<h4 class="anchored" data-anchor-id="install-aider-globally-using-uv">2. Install Aider globally using uv</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> tool install aider-chat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="install-aider-globally" class="level3">
+<h3 class="anchored" data-anchor-id="install-aider-globally">1.2 Install Aider Globally</h3>
+<p>We install Aider as a global tool using <code>uv</code> to ensure it is always available.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> tool install aider-chat <span class="at">--python</span> 3.12 <span class="at">--force</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="project-initialization" class="level3">
-<h3 class="anchored" data-anchor-id="project-initialization">Project Initialization</h3>
-<p>We created a project directory and initialized a standard Python environment.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> igad-dashboard</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> igad-dashboard</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
+<section id="project-initialization" class="level2">
+<h2 class="anchored" data-anchor-id="project-initialization">2. Project Initialization</h2>
+<p>If you are following along with the workshop, clone or download the repository files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/Speedykom/MalariaDataModelingWorkshop</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> MalariaDataModelingWorkshop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="configuration" class="level2">
-<h2 class="anchored" data-anchor-id="configuration">2. Configuration</h2>
-<p>We created a configuration file to manage the Gemini API key and Git behavior.</p>
-<section id="get-gemini-api-key" class="level3">
-<h3 class="anchored" data-anchor-id="get-gemini-api-key">Get Gemini API Key</h3>
-<p>Before configuring Aider, you need an API key from Google.</p>
+<h2 class="anchored" data-anchor-id="configuration">3. Configuration</h2>
+<section id="configure-openrouter-api-key" class="level3">
+<h3 class="anchored" data-anchor-id="configure-openrouter-api-key">3.1 Configure OpenRouter API Key</h3>
+<p>We use OpenRouter for its unified access to multiple high-performance models and its privacy features.</p>
 <ol type="1">
-<li>Go to <a href="https://aistudio.google.com/">Google AI Studio</a></li>
-<li>Click <strong>Create API Key</strong></li>
-<li>Copy the key string (it typically starts with <code>AIza...</code>)</li>
+<li>Navigate to https://openrouter.ai/ to get your API Key.</li>
+<li>Set up your key in the Aider configuration file.</li>
 </ol>
 </section>
-<section id="create-config-file" class="level3">
-<h3 class="anchored" data-anchor-id="create-config-file">Create Config File</h3>
-<p>Create a file named <code>.aider.conf.yml</code> in your project root and paste your key below.</p>
-<p><strong>File: <code>.aider.conf.yml</code></strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Selection</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> gemini/gemini-1.5-pro-latest</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Git Settings: Disable auto-commit to allow manual review</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">auto-commits</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># API Key Configuration</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">api-key</span><span class="kw">:</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> gemini=YOUR_ACTUAL_API_KEY_HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="create-aider-config-file" class="level3">
+<h3 class="anchored" data-anchor-id="create-aider-config-file">3.2 Create Aider Config File</h3>
+<p>Rename the example configuration file and insert your API key.</p>
+<ol type="1">
+<li>Rename <code>example.aider.conf.yml</code> to <code>.aider.conf.yml</code>.</li>
+<li>Edit the file to include your OpenRouter API Key and set your preferred model.</li>
+</ol>
+<p><strong><code>.aider.conf.yml</code> template:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ~/.aider.conf.yml</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Add your openRouter API key</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">api-key</span><span class="kw">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="kw">-</span><span class="at"> openrouter=sk-...</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Set your default model (e.g., Deepseek or Mistral)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> openrouter/mistralai/devstral-2512:free</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Optional: Enable caching to save on costs</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cache-prompts</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="launch-command" class="level3">
-<h3 class="anchored" data-anchor-id="launch-command">Launch Command</h3>
-<p>We launch Aider ensuring it doesn’t auto-commit (redundant with config, but good practice):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span> <span class="at">--no-auto-commits</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
+<section id="security" class="level3">
+<h3 class="anchored" data-anchor-id="security">3.3 Security</h3>
+<p>Protect your configuration file by adding it to <code>.gitignore</code>:</p>
+<pre class="gitignore"><code># Add to .gitignore
+.aider.conf.yml
+.env
+*.env</code></pre>
 </section>
 </section>
-<section id="the-development-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="the-development-workflow">3. The Development Workflow</h2>
-<section id="step-a-context-requirements-the-expert-persona" class="level3">
-<h3 class="anchored" data-anchor-id="step-a-context-requirements-the-expert-persona">Step A: Context &amp; Requirements (The “Expert” Persona)</h3>
-<p>We started by adding the raw data files and a target PRD file to the chat context. This allowed Aider to see the actual column headers in our CSVs.</p>
-<p><strong>Aider Command:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/add</span> context/PRD.md data/dj_et_ke_so_ss_sd_ug_NationalUnit-data.csv data/flu_weather_dataset.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>The Prompt:</strong></p>
-<pre><code>You are an expert Data Scientist working for The Intergovernmental Authority on Development (IGAD) in Eastern Africa.
-
-We need to prepare a high-level presentation for IGAD leadership regarding the current state of malaria and other diseases in the region.
-
-Please fill out the `context/PRD.md` file to outline the requirements for a new Streamlit application.
-
-The application must:
-1. Allow users to upload new CSV files that match the schema/headings of the two files in the `data/` folder (which represent National Unit data and Flu/Weather data).
-2. Automatically perform Exploratory Data Analysis (EDA) upon file upload.
-3. Generate visualizations relevant to the IGAD region (Djibouti, Ethiopia, Kenya, Somalia, South Sudan, Sudan, Uganda) to highlight disease trends and weather correlations.
-
-Analyze the columns in the provided data files to ensure the PRD technical specifications are accurate.</code></pre>
+<section id="installing-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="installing-dependencies">4. Installing Dependencies</h2>
+<p>Use <code>uv sync</code> to install all project dependencies defined in <code>pyproject.toml</code> into a dedicated virtual environment.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="step-b-freezing-the-spec" class="level3">
-<h3 class="anchored" data-anchor-id="step-b-freezing-the-spec">Step B: Freezing the Spec</h3>
-<p>Once the PRD was generated, we locked it to prevent the AI from changing the requirements later.</p>
-<p><strong>Aider Command:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/read-only</span> context/PRD.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="the-development-workflow-with-aider" class="level2">
+<h2 class="anchored" data-anchor-id="the-development-workflow-with-aider">5. The Development Workflow with Aider</h2>
+<p>The recommended workflow follows a four-step process for AI-assisted development:</p>
+<section id="launch-aider" class="level3">
+<h3 class="anchored" data-anchor-id="launch-aider">5.1 Launch Aider</h3>
+<p>Start the AI pair programmer in your project directory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aider</span> <span class="at">--no-auto-commits</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>(Use <code>--no-auto-commits</code> initially if you want to review changes before they are committed.)</p>
 </section>
-<section id="step-c-planning-tdd" class="level3">
-<h3 class="anchored" data-anchor-id="step-c-planning-tdd">Step C: Planning &amp; TDD</h3>
-<p>We instructed Aider to break the work into small, testable tasks.</p>
-<p><strong>The Prompt:</strong></p>
-<pre><code>Create a markdown file with the tasks to complete the PRD. Make each task concrete, use TDD as per PRD. Give each task a number. Also, put a checkmark ('[ ]') next to each task to track completion.</code></pre>
+<section id="the-four-step-aider-process" class="level3">
+<h3 class="anchored" data-anchor-id="the-four-step-aider-process">5.2 The Four-Step Aider Process</h3>
+<ol type="1">
+<li><p><strong>Context &amp; Requirements:</strong> Set up the “Expert” persona and paste the detailed requirements from your <code>PROMPT.md</code> file.</p></li>
+<li><p><strong>Freeze the Spec:</strong> Lock the PRD to prevent the AI from changing core requirements.</p>
+<pre><code>/read-only context/PRD.md</code></pre></li>
+<li><p><strong>Planning &amp; TDD:</strong> Break the work into small, testable tasks (often done automatically based on the prompt).</p></li>
+<li><p><strong>The Loop:</strong> Iterate through tasks by simply asking Aider to proceed.</p>
+<pre><code>Please proceed to the next task.</code></pre></li>
+</ol>
 </section>
-<section id="step-d-the-loop" class="level3">
-<h3 class="anchored" data-anchor-id="step-d-the-loop">Step D: The Loop</h3>
-<p>We entered a loop where we simply told Aider to move to the next item in the checklist it just created.</p>
-<p><strong>The Prompt:</strong></p>
-<pre><code>Please proceed to the next task.</code></pre>
-<hr>
+<section id="essential-aider-commands" class="level3">
+<h3 class="anchored" data-anchor-id="essential-aider-commands">5.3 Essential Aider Commands</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/add file.py</code></td>
+<td>Add a file to the current context for editing/reference.</td>
+</tr>
+<tr class="even">
+<td><code>/read-only file.py</code></td>
+<td>Add a file to the context but prevent AI modifications.</td>
+</tr>
+<tr class="odd">
+<td><code>/drop file.py</code></td>
+<td>Remove a file from the context.</td>
+</tr>
+<tr class="even">
+<td><code>/ls</code></td>
+<td>List files currently in the context.</td>
+</tr>
+<tr class="odd">
+<td><code>/undo</code></td>
+<td>Undo the last change made by Aider.</td>
+</tr>
+<tr class="even">
+<td><code>/exit</code></td>
+<td>Exit the Aider session.</td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="running-the-application" class="level2">
-<h2 class="anchored" data-anchor-id="running-the-application">4. Running the Application</h2>
-<p>Once Aider finished writing the <code>app.py</code> code, we used <code>uv</code> to handle dependencies and execution.</p>
-<section id="install-dependencies" class="level3">
-<h3 class="anchored" data-anchor-id="install-dependencies">Install Dependencies</h3>
-<p>We added the libraries required by the generated code:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add streamlit pandas matplotlib seaborn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 class="anchored" data-anchor-id="running-the-application">6. Running the Application</h2>
+<p>Once your <code>app.py</code> is developed, run the Streamlit dashboard using <code>uv run</code>. This automatically activates the virtual environment and launches the application.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run streamlit run app.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="launch-the-app" class="level3">
-<h3 class="anchored" data-anchor-id="launch-the-app">Launch the App</h3>
-<p>We used <code>uv run</code> to execute Streamlit inside the isolated virtual environment:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run streamlit run app.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>This workflow demonstrates how to leverage modern Python tooling (<code>uv</code>) and AI-assisted development (Aider with Gemini 1.5 Pro) to rapidly build a data-focused Streamlit application. The key principles are:</p>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">7. Resources</h2>
 <ul>
-<li><strong>Context-aware AI</strong>: Feed real data files to Aider for accurate schema understanding</li>
-<li><strong>Specification locking</strong>: Use <code>/read-only</code> to prevent scope creep</li>
-<li><strong>Task decomposition</strong>: Break complex projects into small, testable units</li>
-<li><strong>Iterative development</strong>: Use a simple loop to progress through tasks</li>
-<li><strong>Isolated environments</strong>: Use <code>uv</code> for reproducible dependency management</li>
+<li><strong>uv Documentation:</strong> https://docs.astral.sh/uv/</li>
+<li><strong>OpenRouter:</strong> https://openrouter.ai/</li>
+<li><strong>Aider Documentation:</strong> https://aider.chat/docs</li>
+<li><strong>Streamlit Documentation:</strong> https://docs.streamlit.io</li>
 </ul>
+<hr>
+<p><strong>Happy coding! 🎉</strong></p>
 </section>
 </section>
 
