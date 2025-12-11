@@ -509,8 +509,8 @@ uv run streamlit run app.py
 
 ::: {.incremental}
 - **uv**: docs.astral.sh/uv
+- **OpenRouter**: https://openrouter.ai/
 - **Aider**: aider.chat/docs
-- **Google AI Studio**: aistudio.google.com
 - **Streamlit**: docs.streamlit.io
 :::
 
@@ -534,9 +534,9 @@ uv run streamlit run app.py
 
 ::: {.incremental}
 1. Install uv and Aider
-2. Get your Gemini API key
+2. Get OpenRouter API key
 3. Create your project
-4. Install dependencies with uv add
+4. Install dependencies with uv sync
 5. Follow the 4-step workflow
 6. Deploy your dashboard!
 :::
@@ -548,7 +548,7 @@ uv run streamlit run app.py
 ::: {.incremental}
 - ⚡ **uv** - 10-100x faster package management
 - 🤖 **Aider** - AI pair programmer in your terminal
-- 🎯 **Gemini 1.5 Pro** - Powerful LLM for code generation
+- 🎯 **OpenRouter** - The Unified Interface for LLMs
 - 📊 **Streamlit** - Rapid dashboard development
 - 🔄 **Iterative workflow** - Expert persona + task loops
 :::
