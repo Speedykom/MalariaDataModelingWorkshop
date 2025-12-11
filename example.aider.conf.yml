@@ -2,12 +2,12 @@
 
 # 1. Add your openRouter API key
 # Get one from https://openrouter.ai/settings/keys
-api-key:
+api-key: # insert YOUR_OPENROUTER_API_KEY below
  - openrouter=sk-...
  
 
-# 2. Set your default model
-# Assuming we are using Deepseek...
-model: deepseek/deepseek-v3.2
+# 2. Set your default model (Deepseek, Gemini etc)
+model: openrouter/mistralai/devstral-2512:free
+
 # 3. Optional: Enable caching to save on costs
 cache-prompts: true
