@@ -1,6 +1,6 @@
 # IGAD Malaria & Disease Dashboard Project
 
-[Click here to view the presentation.](https://Speedykom.github.io/MalariaDataModelingWorkshop/)
+[Click here to view the presentation.](#)
 
 ## 🚀 Overview: Modern Python Development Workflow
 
@@ -116,6 +116,25 @@ aider --no-auto-commits
 ```
 
 (Use `--no-auto-commits` initially if you want to review changes before they are committed.)
+
+**You'll see:**
+
+```
+Aider v0.x.x
+Model: gemini/gemini-1.5-pro-latest
+Git repo: .git
+>
+```
+
+#### Troubleshooting: If the Launch Fails
+
+If the basic `aider` command doesn't work (particularly on some Windows systems), try this alternative:
+
+```bash
+uv run --with aider-chat python -m aider --model openrouter/<Model-Name> --api-key openrouter=YOUR_OPENROUTER_API_KEY
+```
+
+Replace `<Model-Name>` with your desired model (e.g., `Deepseek/deepseek-v3.2` or `mistralai/devstral-2512:free`) and `YOUR_OPENROUTER_API_KEY` with your actual OpenRouter API key.
 
 ### 5.2 The Four-Step Aider Process
 
